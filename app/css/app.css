@@ -51,7 +51,7 @@ a:focus {
 
   .body--party {
       animation-name: party;
-      animation-duration: 1s;
+      animation-duration: .75s;
       animation-iteration-count: 3;
       animation-timing-function: linear;
   }
