@@ -16,7 +16,7 @@ function MainCtrl($scope, $timeout) {
   });
   $scope.$on('unanimous vote', function () {
     $scope.logoState = ' header__logo--green';
-    $scope.bodyState = ' body--green';
+    $scope.bodyState = ' body--green body--party';
   });
   $scope.$on('not unanimous vote', function () {
     $scope.logoState = ' header__logo--yellow';
