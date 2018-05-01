@@ -24,7 +24,7 @@ function MainCtrl($scope, $timeout) {
   });
   $scope.$on('problem vote', function () {
     $scope.logoState = ' header__logo--red';
-    $scope.bodyState = ' body--red';
+    $scope.bodyState = ' body--red body--scary';
   });
   $scope.$on('unfinished vote', function () {
     $scope.logoState = '';
