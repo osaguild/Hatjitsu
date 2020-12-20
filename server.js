@@ -46,7 +46,7 @@ var options = {
   , hostname   : config.hostname
   , port       : config.port
   , ssl        : false
-  , production : config.packAssets
+  , production : false
 };
 
 // Initialize the CDN magic
