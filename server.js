@@ -46,7 +46,7 @@ var options = {
   , hostname   : config.hostname
   , port       : config.port
   , ssl        : false
-  , production : false
+  , production : config.packAssets
 };
 
 // Initialize the CDN magic
@@ -69,7 +69,8 @@ if (env === 'development') {
 if (env === 'production') {
   var oneDay = 86400000;
   // app.use(assetsManagerMiddleware);
-  app.use(compression());
+  app.use(compression())
+  app.use(express.static(__dirname + '/app'));
   app.use(errorhandler());
 }
 
