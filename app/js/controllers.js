@@ -223,6 +223,7 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
     var waarschijnlijkheid = ['0,1', '0,2', '0,5', '1', '3', '6', '10'];
     var blootstelling = ['0,5', '1', '2', '3', '6', '10'];
     var effect = ['1', '3', '7', '15', '40', '100'];
+    var starwars = ['4', '5', '6', '1', '2', '3', '7', '3a', '8', '6a', '9'];
     switch (val) {
     case ('fib'):
       return fib;
@@ -240,6 +241,8 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
       return blootstelling;
     case ('effect'):
       return effect;
+    case ('starwars'):
+      return starwars;
     default:
       return [];
     }

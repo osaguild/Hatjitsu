@@ -108,7 +108,7 @@ app.get('/:id', function(req, res) {
 
 var port = process.env.app_port || 5000; // Use the port that Heroku provides or default to 5000
 server.listen(port, function() {
-  console.log("Express server listening on port %d in %s mode", port, app.settings.env);
+  console.log("Express server listening on port %d in %s mode: http://localhost:5000/", port, app.settings.env);
 });
 
 
