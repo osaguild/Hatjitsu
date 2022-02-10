@@ -1080,3 +1080,5 @@ a:hover, a:focus {
     right: 0;
     z-index: 2;
 }
+
+.icon .icon-clipboard:before { content: '\1F4CB';}

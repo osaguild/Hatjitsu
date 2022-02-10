@@ -137,7 +137,7 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
     var cardValues =  _.filter(_.map(_.pluck($scope.votes, 'vote'), cardValue), _.isNumber);
     $scope.votingAverage = average(cardValues);
     $scope.votingStandardDeviation = standardDeviation(cardValues, $scope.votingAverage).toFixed(2);
-    $scope.showAverage = voteArr.length === 0 && cardValues.length > 0;
+    $scope.showAverage = (voteArr.length === 0 && cardValues.length > 0) || $scope.forcedReveal;
 
     $scope.forceRevealDisable = (!$scope.forcedReveal && ($scope.votes.length < $scope.voterCount || $scope.voterCount === 0)) ? false : true;
     console.log("forceRevealDisable", $scope.forceRevealDisable)
@@ -429,6 +429,17 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
     socket.emit('sort votes', { roomUrl: $scope.roomId }, function (response) {
       processMessage(response);
     });
+  };
+
+  $scope.copyToClipboard = function () {
+    var text = $scope.votes.map(value => value.vote).sort().join(',');
+
+    var input = document.body.appendChild(document.createElement("input"));
+    input.value = text;
+    input.focus();
+    input.select();
+    document.execCommand('copy');
+    input.parentNode.removeChild(input);
   };
 
   $scope.toggleVoter = function () {
