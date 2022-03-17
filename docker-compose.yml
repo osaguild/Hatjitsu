@@ -3,7 +3,7 @@ services:
   poker:
     build: .
     ports:
-      - "5000:5000"
+      - "3000:3000"
     volumes:
       - /Hatjitsu/node_modules
       - .:/Hatjitsu
