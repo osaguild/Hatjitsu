@@ -2,7 +2,7 @@ module.exports = {
   // configuration here without worrying about the quotes
   development: {
     hostname: "localhost",
-    port: 5000,
+    port: 3000,
     packAssets: false
   },
   production: {
