@@ -49,11 +49,15 @@ MainCtrl.$inject = ['$scope', '$timeout'];
 
 function LobbyCtrl($scope, $location, socket) {
   $scope.disableButtons = false;
-  $scope.createRoom = function () {
+  $scope.createRoom = function (user) {
     // console.log('createRoom: emit create room');
     $scope.disableButtons = true;
     socket.emit('create room', {}, function (roomUrl) {
-      $location.path(roomUrl);
+      // console.log('createRoom: emit create user');
+      socket.emit('create user', { userName: user }, function (userName) {
+        console.log('created user name is ' + userName)
+        $location.path(roomUrl);
+      });
     });
   };
   $scope.enterRoom = function (room) {
@@ -221,18 +225,18 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
     var play = ['A\u2660', '2', '3', '5', '8', '\u2654'];
     var tshirt = ['XL', 'L', 'M', 'S', 'XS', '?'];
     switch (val) {
-    case ('fib'):
-      return fib;
-    case ('goat'):
-      return goat;
-    case ('seq'):
-      return seq;
-    case ('play'):
-      return play;
-    case ('tshirt'):
-      return tshirt;
-    default:
-      return [];
+      case ('fib'):
+        return fib;
+      case ('goat'):
+        return goat;
+      case ('seq'):
+        return seq;
+      case ('play'):
+        return play;
+      case ('tshirt'):
+        return tshirt;
+      default:
+        return [];
     }
   };
 

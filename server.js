@@ -55,7 +55,7 @@ var CDN = require('express-cdn')(app, options);
 app.set('views', __dirname + '/app');
 app.set('view engine', 'ejs');
 app.set('view options', {
-    layout: false
+  layout: false
 });
 app.use(morgan('combined'));
 app.use(bodyParser.json());
@@ -101,7 +101,7 @@ app.get('/:id', function(req, res) {
   if (req.params.id in lobby.rooms) {
     res.render('index.ejs');
   } else {
-   res.redirect('/');  
+    res.redirect('/');
   }
 });
 
@@ -129,7 +129,7 @@ io.on('connection', function (socket) {
     // console.log("On disconnect", socket.id);
     lobby.broadcastDisconnect(socket);
   });
-  
+
   socket.on('create room', function (data, callback) {
     statsSocketMessagesReceived++;
     // console.log("on create room", socket.id, data);
@@ -237,6 +237,12 @@ io.on('connection', function (socket) {
       room.toggleVoter(data);
       callback( {} );
     }
+  });
+
+  socket.on('create user', function (data, callback) {
+    statsSocketMessagesReceived++;
+    console.log("on create user", socket.id, data);
+    callback(lobby.createUser(data.userName));
   });
 
 });

@@ -747,7 +747,7 @@ a:focus {
     top: 11px;
     left: 2px;
   }
-  .roomUrl {
+  .roomUrl, .userName {
     font-size: 16px;
     line-height: 31px;
     -webkit-box-sizing: border-box;

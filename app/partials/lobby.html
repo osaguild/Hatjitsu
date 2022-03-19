@@ -10,7 +10,8 @@
     </div>
     <label for="createRoom">or</label>
     <div class="row">
-      <button ng-click="createRoom()" id="createRoom" class="span1 btn" title="Create a new planning poker room" ng-disabled="{{disableButtons}}" type="button">Create new room</button>
+      <input ng-model="user" ui-enter="createRoom(user)" name="userfield" id="userfield" type="tel" maxlength="5" placeholder="user name" class="span2 userName" autofocus/>
+      <button ng-click="createRoom(user)" id="createRoom" class="span1 btn" title="Create a new planning poker room" ng-disabled="{{disableButtons}}" type="button">Create new room</button>
     </div>
   </form>
 
