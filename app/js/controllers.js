@@ -145,10 +145,10 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
     $scope.showAverage = voteArr.length === 0 && cardValues.length > 0;
 
     $scope.forceRevealDisable = (!$scope.forcedReveal && ($scope.votes.length < $scope.voterCount || $scope.voterCount === 0)) ? false : true;
-    console.log("forceRevealDisable", $scope.forceRevealDisable)
-    console.log("alreadySorted;", $scope.alreadySorted)
+    // console.log("forceRevealDisable", $scope.forceRevealDisable)
+    // console.log("alreadySorted;", $scope.alreadySorted)
     $scope.sortVotesDisable = !$scope.forceRevealDisable || $scope.alreadySorted;
-    console.log("sortVotesDisable", $scope.sortVotesDisable)
+    //console.log("sortVotesDisable", $scope.sortVotesDisable)
 
     if ($scope.votes.length === $scope.voterCount || $scope.forcedReveal) {
       if ($scope.alreadySorted) {
