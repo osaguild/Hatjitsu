@@ -57,7 +57,7 @@ function LobbyCtrl($scope, $location, socket) {
       $location.path(roomUrl);
     });
   };
-  $scope.enterRoom = function (room) {
+  $scope.enterRoom = function (room, user) {
     console.log('enterRoom: room info');
     $scope.disableButtons = true;
     socket.emit('room info', { roomUrl: room }, function (response) {
@@ -66,6 +66,7 @@ function LobbyCtrl($scope, $location, socket) {
         $scope.$emit('show error', response.error);
       } else {
         console.log("going to enter room " + response.roomUrl);
+        $.cookie("userName", user);
         $location.path(response.roomUrl);
       }
     });
