@@ -50,26 +50,22 @@ MainCtrl.$inject = ['$scope', '$timeout'];
 function LobbyCtrl($scope, $location, socket) {
   $scope.disableButtons = false;
   $scope.createRoom = function (user) {
-    // console.log('createRoom: emit create room');
+    console.log('createRoom: emit create room');
     $scope.disableButtons = true;
     socket.emit('create room', {}, function (roomUrl) {
-      // console.log('createRoom: emit create user');
-      socket.emit('create user', { userName: user }, function (userName) {
-        console.log('created user name is ' + userName)
-        $.cookie("userName", userName);
-        $location.path(roomUrl);
-      });
+      $.cookie("userName", user);
+      $location.path(roomUrl);
     });
   };
   $scope.enterRoom = function (room) {
-    // console.log('enterRoom: room info');
+    console.log('enterRoom: room info');
     $scope.disableButtons = true;
     socket.emit('room info', { roomUrl: room }, function (response) {
       if (response.error) {
         $scope.disableButtons = false;
         $scope.$emit('show error', response.error);
       } else {
-        // console.log("going to enter room " + response.roomUrl);
+        console.log("going to enter room " + response.roomUrl);
         $location.path(response.roomUrl);
       }
     });
@@ -288,6 +284,7 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
       console.log("on room joined");
       console.log("emit room info", { roomUrl: $scope.roomId });
       this.emit('room info', { roomUrl: $scope.roomId }, function (response) {
+        console.log(response.connections)
         processMessage(response, refreshRoomInfo);
       });
     });
@@ -295,6 +292,7 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
       console.log("on room left");
       console.log("emit room info", { roomUrl: $scope.roomId });
       this.emit('room info', { roomUrl: $scope.roomId }, function (response) {
+        console.log(response.connections)
         processMessage(response, refreshRoomInfo);
       });
     });
@@ -303,6 +301,7 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
       console.log("on card pack set");
       console.log("emit room info", { roomUrl: $scope.roomId });
       this.emit('room info', { roomUrl: $scope.roomId }, function (response) {
+        console.log(response.connections)
         processMessage(response, refreshRoomInfo);
       });
     });
@@ -310,6 +309,7 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
       console.log("on voter status changed");
       console.log("emit room info", { roomUrl: $scope.roomId });
       this.emit('room info', { roomUrl: $scope.roomId }, function (response) {
+        console.log(response.connections)
         processMessage(response, refreshRoomInfo);
       });
     });
@@ -317,6 +317,7 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
       console.log("on voted");
       console.log("emit room info", { roomUrl: $scope.roomId });
       this.emit('room info', { roomUrl: $scope.roomId }, function (response) {
+        console.log(response.connections)
         processMessage(response, refreshRoomInfo);
       });
     });
@@ -324,6 +325,7 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
       console.log("on unvoted");
       console.log("emit room info", { roomUrl: $scope.roomId });
       this.emit('room info', { roomUrl: $scope.roomId }, function (response) {
+        console.log(response.connections)
         processMessage(response, refreshRoomInfo);
       });
     });
@@ -331,6 +333,7 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
       console.log("on vote reset");
       console.log("emit room info", { roomUrl: $scope.roomId });
       this.emit('room info', { roomUrl: $scope.roomId }, function (response) {
+        console.log(response.connections)
         processMessage(response, refreshRoomInfo);
       });
     });
@@ -339,6 +342,7 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
       console.log("reveal event received");
       setLocalVote(null);
       this.emit('room info', { roomUrl: $scope.roomId }, function (response) {
+        console.log(response.connections)
         processMessage(response, refreshRoomInfo);
       });
     });
