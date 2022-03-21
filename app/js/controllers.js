@@ -56,6 +56,7 @@ function LobbyCtrl($scope, $location, socket) {
       // console.log('createRoom: emit create user');
       socket.emit('create user', { userName: user }, function (userName) {
         console.log('created user name is ' + userName)
+        $.cookie("userName", userName);
         $location.path(roomUrl);
       });
     });
@@ -350,9 +351,10 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
         $.cookie("sessionId", sessionId);
       }
       $scope.sessionId = $.cookie("sessionId");
-      // console.log("session id = " + $scope.sessionId);
-      // console.log("emit join room", { roomUrl: $scope.roomId, sessionId: $scope.sessionId });
-      socket.emit('join room', { roomUrl: $scope.roomId, sessionId: $scope.sessionId }, function (response) {
+      $scope.userName = $.cookie("userName");
+      console.log("session id = " + $scope.sessionId + "/user name = " + $scope.userName);
+      console.log("emit join room", { roomUrl: $scope.roomId, sessionId: $scope.sessionId, userName: $scope.userName });
+      socket.emit('join room', { roomUrl: $scope.roomId, sessionId: $scope.sessionId, userName: $scope.userName }, function (response) {
         processMessage(response, refreshRoomInfo);
       });
     });
@@ -360,8 +362,9 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
       // console.log("on disconnect");
     });
 
-    // console.log("emit join room", { roomUrl: $scope.roomId, sessionId: $scope.sessionId });
-    socket.emit('join room', { roomUrl: $scope.roomId, sessionId: $scope.sessionId }, function (response) {
+
+    socket.emit('join room', { roomUrl: $scope.roomId, sessionId: $scope.sessionId, userName: $scope.userName }, function (response) {
+      console.log("emit join room", { roomUrl: $scope.roomId, sessionId: $scope.sessionId, userName: $scope.userName });
       processMessage(response, refreshRoomInfo);
     });
   };
@@ -448,6 +451,8 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
 
   $scope.dropDown = new DropDown('#dd');
   $scope.votingAverage = 0;
+
+  $scope.userName = $.cookie("userName");
 }
 
 RoomCtrl.$inject = ['$scope', '$routeParams', '$timeout', 'socket'];
