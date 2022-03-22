@@ -52,24 +52,34 @@ function LobbyCtrl($scope, $location, socket) {
   $scope.createRoom = function (user) {
     console.log('createRoom: emit create room');
     $scope.disableButtons = true;
-    socket.emit('create room', {}, function (roomUrl) {
-      $.cookie("userName", user);
-      $location.path(roomUrl);
-    });
+    if (!user) {
+      $scope.disableButtons = false;
+      $scope.$emit('show error', 'Please enter your name');
+    } else {
+      socket.emit('create room', {}, function (roomUrl) {
+        $.cookie("userName", user);
+        $location.path(roomUrl);
+      });  
+    }
   };
   $scope.enterRoom = function (room, user) {
     console.log('enterRoom: room info');
     $scope.disableButtons = true;
-    socket.emit('room info', { roomUrl: room }, function (response) {
-      if (response.error) {
-        $scope.disableButtons = false;
-        $scope.$emit('show error', response.error);
-      } else {
-        console.log("going to enter room " + response.roomUrl);
-        $.cookie("userName", user);
-        $location.path(response.roomUrl);
-      }
-    });
+    if (!user) {
+      $scope.disableButtons = false;
+      $scope.$emit('show error', 'Please enter your name');
+    } else {
+      socket.emit('room info', { roomUrl: room }, function (response) {
+        if (response.error) {
+          $scope.disableButtons = false;
+          $scope.$emit('show error', response.error);
+        } else {
+          console.log("going to enter room " + response.roomUrl);
+          $.cookie("userName", user);
+          $location.path(response.roomUrl);
+        }
+      });        
+    }
   };
 }
 
