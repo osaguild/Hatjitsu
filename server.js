@@ -55,7 +55,7 @@ var CDN = require('express-cdn')(app, options);
 app.set('views', __dirname + '/app');
 app.set('view engine', 'ejs');
 app.set('view options', {
-    layout: false
+  layout: false
 });
 app.use(morgan('combined'));
 app.use(bodyParser.json());
@@ -101,7 +101,7 @@ app.get('/:id', function(req, res) {
   if (req.params.id in lobby.rooms) {
     res.render('index.ejs');
   } else {
-   res.redirect('/');  
+    res.redirect('/');
   }
 });
 
@@ -121,24 +121,24 @@ io.on('connection', function (socket) {
   statsConnectionCount++;
   statsSocketCount++;
 
-  // console.log("On connect", socket.id);
+  console.log("On connect", socket.id);
 
   socket.on('disconnect', function () {
     statsDisconnectCount++;
     statsSocketCount--;
-    // console.log("On disconnect", socket.id);
+    console.log("On disconnect", socket.id);
     lobby.broadcastDisconnect(socket);
   });
-  
+
   socket.on('create room', function (data, callback) {
     statsSocketMessagesReceived++;
-    // console.log("on create room", socket.id, data);
+    console.log("on create room", socket.id, data);
     callback(lobby.createRoom());
   });
 
   socket.on('join room', function (data, callback) {
     statsSocketMessagesReceived++;
-    // console.log("on join room " + data.roomUrl, socket.id, data);
+    console.log("on join room " + data.roomUrl, socket.id, data);
     var room = lobby.joinRoom(socket, data);
     if(room.error) {
       callback( { error: room.error } );
@@ -149,9 +149,8 @@ io.on('connection', function (socket) {
 
   socket.on('room info', function (data, callback) {
     statsSocketMessagesReceived++;
-    // console.log("on room info for " + data.roomUrl, socket.id, data);
+    console.log("on room info for " + data.roomUrl, socket.id, data);
     var room = lobby.getRoom(data.roomUrl);
-    // room = { error: "there was an error" };
     if (room.error) {
       callback( { error: room.error } );
     } else {
@@ -161,9 +160,9 @@ io.on('connection', function (socket) {
 
   socket.on('set card pack', function (data, cardPack) {
     statsSocketMessagesReceived++;
-    // console.log("on set card pack " + data.cardPack + " for " + data.roomUrl, socket.id, data);
+    console.log("on set card pack " + data.cardPack + " for " + data.roomUrl, socket.id, data);
     var room = lobby.getRoom(data.roomUrl);
-    // console.log("error=" + room.error);
+    console.log("error=" + room.error);
     if (!room.error) {
       room.setCardPack(data);
     }
@@ -171,7 +170,7 @@ io.on('connection', function (socket) {
 
   socket.on('vote', function (data, callback) {
     statsSocketMessagesReceived++;
-    // console.log("on vote " + data.vote + " received for " + data.roomUrl, socket.id, data);
+    console.log("on vote " + data.vote + " received for " + data.roomUrl, socket.id, data);
     var room = lobby.getRoom(data.roomUrl);
     if (room.error) {
       callback( { error: room.error });
@@ -183,7 +182,7 @@ io.on('connection', function (socket) {
 
   socket.on('unvote', function (data, callback) {
     statsSocketMessagesReceived++;
-    // console.log("omn unvote received for " + data.roomUrl, socket.id, data);
+    console.log("omn unvote received for " + data.roomUrl, socket.id, data);
     var room = lobby.getRoom(data.roomUrl);
     if (room.error) {
       callback( { error: room.error });
@@ -195,7 +194,7 @@ io.on('connection', function (socket) {
 
   socket.on('reset vote', function (data, callback) {
     statsSocketMessagesReceived++;
-    // console.log("on reset vote  received for " + data.roomUrl, socket.id, data);
+    console.log("on reset vote  received for " + data.roomUrl, socket.id, data);
     var room = lobby.getRoom(data.roomUrl);
     if (room.error) {
       callback( { error: room.error });
@@ -229,7 +228,7 @@ io.on('connection', function (socket) {
 
   socket.on('toggle voter', function (data, callback) {
     statsSocketMessagesReceived++;
-    // console.log("on toggle voter for " + data.roomUrl, socket.id, data);
+    console.log("on toggle voter for " + data.roomUrl, socket.id, data);
     var room = lobby.getRoom(data.roomUrl);
     if (room.error) {
       callback( { error: room.error });
@@ -237,6 +236,12 @@ io.on('connection', function (socket) {
       room.toggleVoter(data);
       callback( {} );
     }
+  });
+
+  socket.on('create user', function (data, callback) {
+    statsSocketMessagesReceived++;
+    console.log("on create user", socket.id, data);
+    callback(lobby.createUser(data.userName));
   });
 
 });

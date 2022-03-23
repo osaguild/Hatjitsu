@@ -187,6 +187,10 @@ a:focus {
       padding-left: 0.5em;
       padding-right: 0.5em;
     }
+  .userPanel {
+    padding: 1em 8px 0.5em;
+    position: relative;
+  }
   .votePanel {
     overflow: hidden;
     padding: 1em 8px 0;
@@ -279,7 +283,7 @@ a:focus {
     overflow: hidden;
   }
     .cards .card {
-      margin-bottom: 0.5em;
+      margin-bottom: 30px;
       margin-right: 0.5em;
     }
   .card {
@@ -323,6 +327,16 @@ a:focus {
          -o-transition: background-position 0.1s ease;
             transition: background-position 0.1s ease;
   }
+    .card > .user-name {
+      display: block;
+      position: relative;
+      width: 50px;
+      height: 20px;
+      top: 80px;
+      left: 0;
+      font-size: 0.5em;
+      line-height: 1em;
+    }
     .card--2-sided {
       -webkit-box-shadow: none;
          -moz-box-shadow: none;
@@ -332,7 +346,7 @@ a:focus {
       border: none;
       float: left;
     }
-    .card--selected {
+    .card--selected > [class^="card--"] {
       background-color: gold;
       background-image: -webkit-gradient(linear, 0 0, 0 100%, from(gold), to(gold));
       background-image: -webkit-linear-gradient(top, gold, gold);
@@ -342,12 +356,12 @@ a:focus {
       background-repeat: repeat-x;
       cursor: default;
     }
-      .card--selected:hover,
-      .card--selected:focus {
+      .card--selected > [class^="card--"]:hover,
+      .card--selected > [class^="card--"]:focus {
         background-position: 0 0;
         background-color: gold;
       }
-      .card--2-sided > * {
+      .card--2-sided > [class^="card--"] {
         position: absolute;
         display: inline-block;
         width: 100%;
@@ -396,8 +410,8 @@ a:focus {
           background-color: transparent;
           background-image: none;
         }
-        .card--2-sided > .card--selected,
-        .card--2-sided.card--selected > * {
+        .card--2-sided > .card--selected > [class^="card--"],
+        .card--2-sided.card--selected > [class^="card--"] {
           background-color: gold;
           background-image: -webkit-gradient(linear, 0 0, 0 100%, from(gold), to(gold));
           background-image: -webkit-linear-gradient(top, gold, gold);
@@ -558,7 +572,7 @@ a:focus {
   .vote.card { cursor: default; }
   .vote.card--selected { cursor: pointer; }
 
-/*
+  /*
 
   Buttons
 
@@ -747,7 +761,7 @@ a:focus {
     top: 11px;
     left: 2px;
   }
-  .roomUrl {
+  .roomUrl, .userName {
     font-size: 16px;
     line-height: 31px;
     -webkit-box-sizing: border-box;
