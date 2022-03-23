@@ -1,6 +1,18 @@
 <div ng-init="configureRoom()">
   <p class="roomNumber">Room: {{roomId}} / Name: {{userName}}</p>
 
+  <section class="userPanel" >
+    <div class="row">
+      If your name is empty, Please set your name
+    </div>
+    <div class="row">
+      <form>
+        <input ng-model="user" ui-enter="setUser(user)" name="userfield" id="userfield" type="tel" maxlength="8" placeholder="user name" class="span2 userName"/>
+        <button ng-click="setUser(user)" class="span2 btn" title="Set user name" ng-disabled="{{disableButtons}}" type="submit">Set user</button>
+      </form>  
+    </div>
+  </section>
+
   <section class="cardPanel" >
     <div class="row cardPanel-meta">
       <div class="span2 subheading">
@@ -40,8 +52,6 @@
   </section>
 
   <section class="votePanel" >
-    <!-- <span class="sub">Humans: <span class="label">{{humanCount}}</span></span> -->
-
     <div class="switch">
       <input type="checkbox" ng-model="voter" ng-disabled="forceRevealDisable" ng-change="toggleVoter()">
       <label class="btn" data-on="You are a voter" data-off="You are not a voter">I am voting</label>

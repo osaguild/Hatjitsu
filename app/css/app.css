@@ -187,6 +187,10 @@ a:focus {
       padding-left: 0.5em;
       padding-right: 0.5em;
     }
+  .userPanel {
+    padding: 1em 8px 0.5em;
+    position: relative;
+  }
   .votePanel {
     overflow: hidden;
     padding: 1em 8px 0;

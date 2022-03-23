@@ -119,7 +119,7 @@ function cardValue(vote){
   }
 }
 
-function RoomCtrl($scope, $routeParams, $timeout, socket) {
+function RoomCtrl($scope, $routeParams, $timeout, $window, socket) {
 
   var processMessage = function (response, process) {
     // console.log("processMessage: response:", response)
@@ -447,6 +447,12 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
     });
   };
 
+  $scope.setUser = function (user) {
+    console.log('setUser: emit set user');
+    $.cookie("userName", user);
+    $window.location.reload();
+  };
+
   $scope.roomId = $routeParams.roomId;
   $scope.humanCount = 0;
   $scope.voterCount = 0;
@@ -469,4 +475,4 @@ function RoomCtrl($scope, $routeParams, $timeout, socket) {
   $scope.userName = $.cookie("userName");
 }
 
-RoomCtrl.$inject = ['$scope', '$routeParams', '$timeout', 'socket'];
+RoomCtrl.$inject = ['$scope', '$routeParams', '$timeout', '$window', 'socket'];
